@@ -7,7 +7,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const server = http.createServer(app);
-const wss = new WebSocket.Server({ server });
+const wss = new WebSocket.Server({
+  server,
+  clientTracking: true,
+  perMessageDeflate: false,
+  port: 9999,
+});
 
 wss.on('connection', (ws) => {
   console.log('A client connected:', ws._socket.remoteAddress);
