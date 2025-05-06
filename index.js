@@ -11,7 +11,6 @@ const wss = new WebSocket.Server({
   server,
   clientTracking: true,
   perMessageDeflate: false,
-  port: 9999,
 });
 
 wss.on('connection', (ws) => {
