@@ -43,7 +43,7 @@ wss.on('connection', (ws) => {
           targetClient.send(
             JSON.stringify({ type: 'data', 'send-data': data['send-data'] })
           );
-          console.log(`Data sent to ${targetIdentifier}: ${data['send-data']}`);
+          // console.log(`Data sent to ${targetIdentifier}: ${data['send-data']}`);
         } else {
           console.log(`No client found for identifier: ${targetIdentifier}`);
           ws.send(
@@ -83,7 +83,7 @@ app.get('/', (req, res) => {
   res.send('WebSocket server is running');
 });
 
-const PORT = process.env.PORT || 4000; // Updated to match your current port
+const PORT = 3000; // Updated to match your current port
 server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
