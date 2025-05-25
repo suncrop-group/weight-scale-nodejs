@@ -5,8 +5,13 @@ import logging
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
+# Define your unique identifier (must match the sender's RECEIVER_IDENTIFIER)
+RECEIVER_IDENTIFIER = 'project1_company1_warehouse1_weightScale1'
+
 def on_open(ws):
     logging.info("Connected to server as receiver")
+    # Register the receiver with its identifier
+    ws.send(json.dumps({"type": "register", "identifier": RECEIVER_IDENTIFIER}))
 
 def on_message(ws, message):
     try:
@@ -25,11 +30,13 @@ def on_close(ws, close_status_code, close_reason):
 def connect():
     while True:
         try:
-            ws = websocket.WebSocketApp("wss://weight-scale-nodejs.onrender.com/",
-                                      on_open=on_open,
-                                      on_message=on_message,
-                                      on_error=on_error,
-                                      on_close=on_close)
+            ws = websocket.WebSocketApp(
+                "ws://localhost:4000/",  # Update to your server URL (e.g., ws://your-ec2-dns:4000)
+                on_open=on_open,
+                on_message=on_message,
+                on_error=on_error,
+                on_close=on_close
+            )
             ws.run_forever()
         except Exception as e:
             logging.error(f"Connection failed: {e}")
