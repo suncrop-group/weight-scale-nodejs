@@ -36,8 +36,8 @@ wss.on('connection', (ws) => {
     }
   });
 
-  ws.on('close', () => {
-    console.log('Client disconnected:', ws._socket.remoteAddress);
+  ws.on('close', (code, reason) => {
+    console.log(`Disconnected. Code: ${code}, Reason: ${reason}`);
   });
 
   ws.on('error', (error) => {
